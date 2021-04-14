@@ -1,19 +1,15 @@
-<h1>EasySchedule</h1>
-<%= button_to 'ログアウト', destroy_user_session_path, method: :delete %>
+<div class="yotei">
+  <h1>予定一覧</h1>
+</div>
 
-<% if user_signed_in? %>
-<%= link_to "マイページへ", user_path(current_user.id) %>
-<% end %>
-
-<h3>予定一覧</h3>
-<%= link_to "新規投稿ページへ", new_post_path %>
 <div class="posts-container">
   <% @posts.each do |t| %>
     <div class="post">
       <a href="/users/<%= t.user.id %>"><%= t.user.name %></a>
-      <%= t.user.email %>
+      <br>
       <%= t.title %>
-      
+
+      <%#likeボタン %>
       <% if user_signed_in? %>
           <% if current_user.already_liked?(t) %>
             <%= link_to post_like_path(id: t.id, post_id: t.id), method: :delete do %>
@@ -28,6 +24,7 @@
           <i class="far fa-heart"></i><%= t.likes.count %>
       <% end %>
 
+      <%#doneボタン %>
       <% if user_signed_in? %>
         <% if current_user.already_doned?(t) %>
             <%= link_to post_done_path(id: t.id, post_id: t.id), method: :delete do %>
@@ -38,14 +35,16 @@
               <i class="far fa-check-circle"></i><%= t.dones.count %>
             <% end %>
         <% end %>
-    <% else %>
-        <i class="far fa-check-circle"></i><%= t.dones.count %>
-    <% end %>
+      <% else %>
+          <i class="far fa-check-circle"></i><%= t.dones.count %>
+      <% end %>
+      <br>
 
-      <%= t.created_at %>
+      <%= t.created_at.strftime('%Y/%m/%d %H:%M') %>
       <%= link_to "詳細へ", post_path(t.id) %>
       <%= link_to "編集する", edit_post_path(t.id) %>
       <%= link_to "削除する", post_path(t.id), method: :delete %>
+      
     </div>
   <% end %>
 </div>

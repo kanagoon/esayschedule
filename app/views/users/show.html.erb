@@ -1,22 +1,61 @@
-<h1>users#show</h1>
-<p>名前 : <%= @user.name %></p>
-<p>メールアドレス : <%= @user.email %></p>
-<p>プロフィール : <%= @user.profile %></p>
+<div class="profilehead">
+  <p>名前 : <%= @user.name %></p>
+  <div class="profile-right">
+    <p>メールアドレス : <%= @user.email %></p>
+  </div>
+</div>
+
+  <div class="profiletext">
+    プロフィール : <%= @user.profile %>
+  </div>
 
 <% if current_user.id == @user.id %>
   <%= link_to "編集する", edit_user_registration_path %>
 <% end %>
 
-<h2>ユーザーの投稿一覧</h2>
-<% @user.posts.each do |t| %>
-  <%= t.user.name %>
-  <%= t.title %>
-<% end %>
+<div class="myschedule">
+  <h2><%= @user.name %>の投稿一覧</h2>
+  <div class="post-contents">
+    <% @user.posts.each do |t| %>
+      <br>
+      <%= t.title %>
+      <%#likeボタン %>
+      <% if user_signed_in? %>
+          <% if current_user.already_liked?(t) %>
+            <%= link_to post_like_path(id: t.id, post_id: t.id), method: :delete do %>
+              <i class="fas fa-heart"></i><%= t.likes.count %>
+            <% end %>
+          <% else %>
+            <%= link_to post_likes_path(id: t.id, post_id: t.id), method: :post do %>
+              <i class="far fa-heart"></i><%= t.likes.count %>
+            <% end %>
+          <% end %>
+      <% else %>
+          <i class="far fa-heart"></i><%= t.likes.count %>
+      <% end %>
+      <%#doneボタン %>
+      <% if user_signed_in? %>
+        <% if current_user.already_doned?(t) %>
+            <%= link_to post_done_path(id: t.id, post_id: t.id), method: :delete do %>
+              <i class="fas fa-check-circle"></i><%= t.dones.count %>
+            <% end %>
+        <% else %>
+            <%= link_to post_dones_path(id: t.id, post_id: t.id), method: :post do %>
+              <i class="far fa-check-circle"></i><%= t.dones.count %>
+            <% end %>
+        <% end %>
+      <% else %>
+          <i class="far fa-check-circle"></i><%= t.dones.count %>
+      <% end %>
+      <br>
+    <% end %>
+  </div>
+</div>
 
-<h2>ユーザーがいいねした投稿一覧</h2>
-<% @user.liked_posts.each do |t| %>
-  <%= t.user.name %>
-  <%= t.title %>
-<% end %>
-
-<%= link_to "予定一覧に戻る", posts_path %>
+<div class="myfav">
+  <h2><%= @user.name %>がいいねした投稿一覧</h2>
+  <% @user.liked_posts.each do |t| %>
+    <%= t.user.name %>
+    <%= t.title %>
+  <% end %>
+</div>

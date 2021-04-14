@@ -1,3 +1,34 @@
 // Place all the styles related to the users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+.profilehead{
+  font-size: 20px;
+  color: #36622b;
+  display: flex;
+}
+
+.profile-right{
+  margin-left: 20px;
+}
+
+.profiletext{
+  font-size: 20px;
+  color: #36622b;
+}
+
+.myschedule{
+  margin-top: 30px;
+  color: #36622b;
+  font-family: "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro W3", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", sans-serif;
+}
+
+.post-contents{
+  border-top: solid #729d39;
+}
+
+.myfav{
+  margin-top: 30px;
+  color: #36622b;
+  font-family: "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro W3", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", sans-serif;
+}
