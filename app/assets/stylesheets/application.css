@@ -59,12 +59,15 @@ header li {
 footer {
   color: #36622b;
   height: 30px;
-  background-color: #c6e377;
   bottom: 0;
   width: 100%;
   align-items: center;
   display: flex;
   position: absolute;
+}
+footer p{
+  width: 400px;
+  margin-left: 67%;
 }
 a{
   color: #36622b;

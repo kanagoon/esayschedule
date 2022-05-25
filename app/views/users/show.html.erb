@@ -7,11 +7,11 @@
 
   <div class="profiletext">
     プロフィール : <%= @user.profile %>
+    <% if current_user.id == @user.id %>
+      <p><%= link_to "編集する", edit_user_registration_path %></p>
+    <% end %>
   </div>
 
-<% if current_user.id == @user.id %>
-  <%= link_to "編集する", edit_user_registration_path %>
-<% end %>
 
 <div class="myschedule">
   <h2><%= @user.name %>の投稿一覧</h2>
@@ -54,8 +54,11 @@
 
 <div class="myfav">
   <h2><%= @user.name %>がいいねした投稿一覧</h2>
+  <div class="line"></div>
   <% @user.liked_posts.each do |t| %>
+    <br>
     <%= t.user.name %>
     <%= t.title %>
+    <br>
   <% end %>
 </div>
